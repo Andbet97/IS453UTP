@@ -79,6 +79,7 @@ solver(M, RD, RM, RI, RF, S, C, E) :- head_tail(M, H, T),
 %step3
        addlast(S, EI, NS), NC is C+1, eval(NC, NAC, 2),
        rot_one(RD, RM, RI, NAC, NRD, NRM, NRI),
+       print_message(warning, NRD),
        solver(T, NRD, NRM, NRI, RF, NS, NAC, E).
 
 
