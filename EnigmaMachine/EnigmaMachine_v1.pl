@@ -41,6 +41,9 @@ rot([H|T], Acc, R):- Acc > 1, addlast(T, H, NL), NAcc is Acc-1,
 %obtener cabeza y cola de la lista
 head_tail([H|T], H, T).
 
+%crear un par
+par(H, T, [H|T]).
+
 %me da el elemento en la posicion N
 give_elem([H|_], 0, H).
 give_elem([_|T], P, R) :- P > 0, NP is P-1, give_elem(T, NP, R).
@@ -51,44 +54,87 @@ eval(C, NC, 2) :- (C < 78; C = 78), NC is C, eval(NC, NC, 0).
 eval(A, A, 0).
 
 %rotar en orden los rotores
-rot_one(RD, RM, RI, C, NRD, NRM, NRI) :- C < 26,
-        copy(RI, [],NRI), copy(RM, [], NRM), rot(RD, 1, NRD).
-rot_one(RD, RM, RI, C, NRD, NRM, NRI):- C = 26,
-        copy(RI, [], NRI), rot(RM, 1, NRM), rot(RD, 1, NRD).
-rot_one(RD, RM, RI, C, NRD, NRM, NRI):- (C > 26, C < 52),
-        copy(RD, [], NRD), copy(RI, [], NRI), rot(RM, 1, NRM).
-rot_one(RD, RM, RI, C, NRD, NRM, NRI):- C = 52,
-        copy(RD, [], NRD), rot(RM, 1, NRM), rot(RI, 1, NRI).
-rot_one(RD, RM, RI, C, NRD, NRM, NRI):- (C > 52, C < 78),
-        copy(RD, [], NRD), copy(RM, [], NRM), rot(RI, 1, NRI).
-rot_one(RD, RM, RI, C, NRD, NRM, NRI):- C = 78,
-        copy(RM, [], NRM), rot(RI, 1, NRI), rot(RD, 1, NRD).
+rot_one(LRD, LRM, LRI, C, NLRD, NLRM, NLRI) :- C < 26,
+        head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+        head_tail(LRI, RI, ARI),
+        copy(RI, [],NRI), copy(RM, [], NRM),
+        rot(RD, 1, NRD),  rot(ARD, 1, NRD_2),
+        copy(ARI, [],NRI_2), copy(ARM, [], NRM_2),
+        par(NRI, NRI_2, NLRI), par(NRM, NRM_2, NLRM),
+        par(NRD, NRD_2, NLRD).
+rot_one(LRD, LRM, LRI, C, NLRD, NLRM, NLRI):- C = 26,
+        head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+        head_tail(LRI, RI, ARI),
+        copy(RI, [], NRI), copy(ARI, [], NRI_2),
+        rot(RM, 1, NRM), rot(ARM, 1, NRM_2),
+        rot(RD, 1, NRD), rot(ARD, 1, NRD_2),
+        par(NRI, NRI_2, NLRI), par(NRM, NRM_2, NLRM),
+        par(NRD, NRD_2, NLRD).
+rot_one(LRD, LRM, LRI, C, NLRD, NLRM, NLRI):- (C > 26, C < 52),
+        head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+        head_tail(LRI, RI, ARI),
+        copy(RD, [], NRD), copy(ARD, [], NRD_2),
+        copy(RI, [], NRI), copy(ARI, [], NRI_2),
+        rot(RM, 1, NRM), rot(ARM, 1, NRM_2),
+        par(NRI, NRI_2, NLRI), par(NRM, NRM_2, NLRM),
+        par(NRD, NRD_2, NLRD).
+rot_one(LRD, LRM, LRI, C, NLRD, NLRM, NLRI):- C = 52,
+        head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+        head_tail(LRI, RI, ARI),
+        copy(RD, [], NRD), copy(ARD, [], NRD_2),
+        rot(RM, 1, NRM), rot(ARM, 1, NRM_2),
+        rot(RI, 1, NRI), rot(ARI, 1, NRI_2),
+        par(NRI, NRI_2, NLRI), par(NRM, NRM_2, NLRM),
+        par(NRD, NRD_2, NLRD).
+rot_one(LRD, LRM, LRI, C, NLRD, NLRM, NLRI):- (C > 52, C < 78),
+        head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+        head_tail(LRI, RI, ARI),
+        copy(RD, [], NRD), copy(ARD, [], NRD_2),
+        copy(RM, [], NRM), copy(ARM, [], NRM_2),
+        rot(RI, 1, NRI), rot(ARI, 1, NRI_2),
+        par(NRI, NRI_2, NLRI), par(NRM, NRM_2, NLRM),
+        par(NRD, NRD_2, NLRD).
+rot_one(LRD, LRM, LRI, C, NLRD, NLRM, NLRI):- C = 78,
+        head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+        head_tail(LRI, RI, ARI),
+        copy(RM, [], NRM), copy(ARM, [], NRM_2),
+        rot(RI, 1, NRI), rot(ARI, 1, NRI_2),
+        rot(RD, 1, NRD), rot(ARD, 1, NRD_2),
+        par(NRI, NRI_2, NLRI), par(NRM, NRM_2, NLRM),
+        par(NRD, NRD_2, NLRD).
 
 %encriptar, desencriptar mensaje
 solver([], _, _, _, _, S, _, S).
-solver(M, RD, RM, RI, RF, S, C, E) :- head_tail(M, H, T),
+solver(M, LRD, LRM, LRI, RF, S, C, E) :- head_tail(M, H, T),
 %step1
-       alphabet(AL), member(AL, H, P1), give_elem(RD, P1, L1),
-       member(AL, L1, P2), give_elem(RM, P2, L2),
-       member(AL, L2, P3), give_elem(RI, P3, L3),
-       member(AL, L3, PF), give_elem(RF, PF, B),
+       head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
+       head_tail(LRI, RI, ARI), alphabet(AL),
+       member(AL, H, P1), give_elem(RD, P1, L1),
+       member(ARD, L1, P2), give_elem(RM, P2, L2),
+       member(ARM, L2, P3), give_elem(RI, P3, L3),
+       member(ARI, L3, P_F), give_elem(RF, P_F, X),
+       member(AL, X, PF), give_elem(ARI, PF, B),
 %step2
-       member(RI, B, V1), give_elem(AL, V1, B1),
-       member(RM, B1, V2), give_elem(AL, V2, B2),
+       member(RI, B, V1), give_elem(ARM, V1, B1),
+       member(RM, B1, V2), give_elem(ARD, V2, B2),
        member(RD, B2, V3), give_elem(AL, V3, EI),
 %step3
        addlast(S, EI, NS), NC is C+1, eval(NC, NAC, 2),
-       rot_one(RD, RM, RI, NAC, NRD, NRM, NRI),
-       print_message(warning, NRD),
-       solver(T, NRD, NRM, NRI, RF, NS, NAC, E).
-
+       rot_one(LRD, LRM, LRI, NAC, NLRD, NLRM, NLRI),
+       solver(T, NLRD, NLRM, NLRI, RF, NS, NAC, E).
 
 %para encriptar
-encrypt(M, C, E) :- head_tail(C, N1, R1), head_tail(R1, N2, R2),
-    head_tail(R2, N3, _), alphabet(L), member(L, N1, P1),
-    member(L, N2, P2), member(L, N3, P3), r1(RI), r2(RM),
-    r3(RD), rot(RI, P1, S1), rot(RM, P2, S2), rot(RD, P3, S3),
-    rfb(RF), solver(M, S3, S2, S1, RF, [], 0, E).
+encrypt(M, C, E) :-
+    head_tail(C, N1, R1), head_tail(R1, N2, R2),
+    head_tail(R2, N3, _),
+    alphabet(L), member(L, N1, P1),
+    member(L, N2, P2), member(L, N3, P3),
+    r1(RI), r2(RM), r3(RD), rfb(RF),
+    alphabet(ARD), alphabet(ARI), alphabet(ARM),
+    rot(RI, P1, S1), rot(ARI, P1, AS1), par(S1, AS1, LRI),
+    rot(RM, P2, S2), rot(ARM, P2, AS2), par(S2, AS2, LRM),
+    rot(RD, P3, S3), rot(ARD, P3, AS3), par(S3, AS3, LRD),
+    solver(M, LRD, LRM, LRI, RF, [], 0, E).
 
 %para desencriptar
 decrypt(M, C, E) :- encrypt(M, C, E).
