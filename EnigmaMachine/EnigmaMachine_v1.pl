@@ -100,10 +100,11 @@ encrypt(M, C, E) :-
     member(L, N1, P1), member(L, N2, P2), member(L, N3, P3),
     r1(RI), r2(RM), r3(RD), rfb(RF),
     alphabet(ARD), alphabet(ARI), alphabet(ARM),
+    NP3 is P3+1,
     rot(RI, P1, S1), rot(ARI, P1, AS1), par(S1, AS1, LRI),
     rot(RM, P2, S2), rot(ARM, P2, AS2), par(S2, AS2, LRM),
-    rot(RD, P3, S3), rot(ARD, P3, AS3), par(S3, AS3, LRD),
-    solver(M, LRD, LRM, LRI, RF, [], E).
+    rot(RD, NP3, S3), rot(ARD, NP3, AS3), par(S3, AS3, LRD),
+    solver(M, LRD, LRM, LRI, RF, [], E), !.
 
 %para desencriptar
 decrypt(M, C, E) :- encrypt(M, C, E).
