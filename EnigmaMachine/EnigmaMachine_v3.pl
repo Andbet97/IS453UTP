@@ -12,7 +12,7 @@ member2([H|T], X, Acc, P) :-
     member2(T, X, NAcc, P), !.
 member(L, X, P) :- member2(L, X, 0, P).
 
-%añadir al final de la lista
+%aï¿½adir al final de la lista
 addlast([], E, [E]) :- !.
 addlast([H|T], E, [H|TL]) :- addlast(T, E, TL), !.
 
@@ -118,7 +118,7 @@ rest(E, D, R) :- NR is E-D, (
 reconf_rot(PR, D, R) :- reconfig(PR, D, [], R).
 reconfig(PR, 0, _, PR) :- !.
 reconfig([], _, S, S).
-reconfig([H|T], D, S, R) :- alphabet(L), member(L, H, P),
+reconfig([H|T], D, S, R) :- D > 0, alphabet(L), member(L, H, P),
     sum(D, P, F), give_elem(L, F, N), addlast(S, N, NS),
     reconfig(T, D, NS, R), !.
 
