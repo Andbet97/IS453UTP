@@ -9,11 +9,17 @@ to produce an output that could be mirrored and, in turn, decrypted.
 ## Project Scope:
 
 This particular script is based on the [**M3 model**](http://wiki.franklinheath.co.uk/index.php/Enigma/Paper_Enigma).
+
 This project have four versions:
-  EnigmaMachine_v1.pl
-  EnigmaMachine_v2.pl
-  EnigmaMachine_v3.pl
-  EnigmaMachine_v4.pl
+
+  -EnigmaMachine_v1.pl.
+
+  -EnigmaMachine_v2.pl.
+
+  -EnigmaMachine_v3.pl.
+
+  -EnigmaMachine_v4.pl.
+
 In the following section I'm going to speak about how to use everyone of this versions.
 
 ## Usage:
@@ -103,15 +109,19 @@ The predicate that decrypt in the enigma machine is **decrypt**
 ### Examples:
 
 **EnigmaMachine_v1**
+
 ![alt text](https://github.com/andbet050197/IS453UTP/blob/master/EnigmaMachine/Files/prueba1.jpg "Example 1")
 
 **EnigmaMachine_v2**
+
 ![alt text](https://github.com/andbet050197/IS453UTP/blob/master/EnigmaMachine/Files/prueba2.jpg "Example 2")
 
 **EnigmaMachine_v3**
+
 ![alt text](https://github.com/andbet050197/IS453UTP/blob/master/EnigmaMachine/Files/prueba3.jpg "Example 3")
 
 **EnigmaMachine_v4**
+
 ![alt text](https://github.com/andbet050197/IS453UTP/blob/master/EnigmaMachine/Files/prueba4.jpg "Example 4")
 
 ### Credit
