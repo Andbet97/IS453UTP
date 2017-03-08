@@ -8,7 +8,7 @@ to produce an output that could be mirrored and, in turn, decrypted.
 
 ## Project Scope:
 
-This particular script is based on the [**M3 model**](https://www.youtube.com/watch?v=G2_Q9FoD-oQ&t=460s).
+This particular script is based on the [**M3 model**](https://www.youtube.com/watch?v=G2_Q9FoD-oQ&t).
 
 This project have four versions:
 
