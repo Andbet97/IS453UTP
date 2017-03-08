@@ -9,10 +9,13 @@ The problem is to determine the total number of possible combinations to return 
 To this project I use C language.
 The imput for this problem is one **integer** that represent the amount of money to return.
 
+
 `Ingrese la cantidad a devolver`
+
 `[input]`
 
 The output for this project is the total number of possible combinations.
+
 `Posibles combinaciones: [output]`
 
 ##Compilation mode
@@ -43,7 +46,7 @@ if you work in GNU Linux.
 
 ![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/foto2.jpg "Example 2")
 
-**Project answer to test 1**
+**Project answer to test 2**
 
 ![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/ejemplo2.jpg "Example 2")
 
