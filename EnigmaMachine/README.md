@@ -126,4 +126,4 @@ The predicate that decrypt in the enigma machine is **decrypt**, with the same a
 
 ### Credit
 
-Thanks to the page [wiki.franklinheath.co.uk](http://wiki.franklinheath.co.uk/index.php/Enigma/Paper_Enigma) for providing a clear guide on how to make the puzzle machine.
+Thanks to the page [wiki.franklinheath.co.uk](http://wiki.franklinheath.co.uk/index.php/Enigma/Paper_Enigma) for providing a clear guide on how to make the Enigma Machine.
