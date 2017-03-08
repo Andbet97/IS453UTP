@@ -37,7 +37,7 @@ which is Rotor I, Rotor II and then Rotor III.
 
 The third argument is the **output**, which should always be a variable.
 
-The predicate that decrypt in the enigma machine is **decrypt**.
+The predicate that decrypt in the enigma machine is **decrypt**, with the same arguments.
 
 **EnigmaMachine_v2**
 
@@ -55,7 +55,7 @@ The third argument are the **message key** for encryption.
 
 The fourth argument is the **output**, which should always be a variable.
 
-The predicate that decrypt in the enigma machine is **decrypt**
+The predicate that decrypt in the enigma machine is **decrypt**, with the same arguments.
 
 **EnigmaMachine_v3**
 
@@ -78,7 +78,7 @@ The fifth argument are the **message key** for encryption.
 
 The sixth argument is the **output**, which should always be a variable.
 
-The predicate that decrypt in the enigma machine is **decrypt**
+The predicate that decrypt in the enigma machine is **decrypt**, with the same arguments.
 
 **EnigmaMachine_v4**
 
@@ -104,7 +104,7 @@ with each pair of letters for The Plug Board.
 
 The seventh argument is the **output**, which should always be a variable.
 
-The predicate that decrypt in the enigma machine is **decrypt**
+The predicate that decrypt in the enigma machine is **decrypt**, with the same arguments.
 
 ### Examples:
 
