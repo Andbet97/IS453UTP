@@ -1,6 +1,8 @@
-%Enigma Machine version 1.
-%Esta es la maquina enigma en su version basica.
-%La distribucion es: Reflector B, Rotor III, Rotor II, Rotor I.
+%Enigma Machine version 2.
+%Se reutiliza la base de conociiento de la version 1.
+%Se recibira una lista con el orden en el cual se quiere tener
+%los rotores y cual rotor desea en estas posiciones, en esta
+%lista en su posicion final se escoge tambien el reflector.
 
 %saber la posicion de un elemento en la lista
 %la pregunta es -?member(Lista, elemento, P).
@@ -27,8 +29,14 @@ r2([a, j, d, k, s, i, r, u, x, b, l, h, w, t, m, c, q, g,
     z, n, p, y, f, v, o, e]).
 r3([b, d, f, h, j, l, c, p, r, t, x, v, z, n, y, e, i, w,
     g, a, k, m, u, s, q, o]).
+r4([e, s, o, v, p, z, j, a, y, q, u, i, r, h, x, l, n, f,
+    t, g, k, d, c, m, w, b]).
+r5([v, z, b, r, g, i, t, y, u, p, s, d, n, h, l, x, a, w,
+    m, j, q, o, f, e, c, k]).
 rfb([y, r, u, h, q, s, l, d, p, x, n, g, o, k, m, i, e, b,
      f, z, c, w, v, j, a, t]).
+rfc([f, v, p, j, i, a, o, y, e, d, r, z, x, w, g, c, t, k,
+     u, q, s, b, n, m, h, l]).
 alphabet([a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,
           q, r, s, t, u, v, w, x, y, z]).
 
@@ -48,6 +56,17 @@ par(H, T, [H|T]).
 give_elem([H|_], 0, H) :- !.
 give_elem([_|T], P, R) :- P > 0, NP is P-1,
     give_elem(T, NP, R), !.
+
+%escoger el rotor adecuado con su bandera.
+choose_rot(E, R, B) :- (E = i, r1(R), B = q, !);
+                       (E = ii, r2(R), B = e, !);
+                       (E = iii, r3(R), B = v, !);
+                       (E = iv, r4(R), B = j, !);
+                       (E = v, r5(R), B = z, !).
+
+%escoger el reflector.
+choose_rf(E, RF) :- (E = b, rfb(RF), !);
+                    (E = c, rfc(RF), !).
 
 %aplicacion de las reglas de casillas grices
 gray_bar(LRD, LRM, LRI, BD, BM, NLD, NLM, NLI) :-
@@ -75,8 +94,9 @@ gray_bar(LRD, LRM, LRI, BD, BM, NLD, NLM, NLI) :-
     ).
 
 %encriptar, desencriptar mensaje
-solver([], _, _, _, _, S, S).
-solver(M, LRD, LRM, LRI, RF, S, E) :- head_tail(M, H, T),
+solver([], _, _, _, _, S, _, _, S).
+solver(M, LRD, LRM, LRI, RF, S, BD, BM, E) :-
+    head_tail(M, H, T),
 %step1
     head_tail(LRD, RD, ARD), head_tail(LRM, RM, ARM),
     head_tail(LRI, RI, ARI), alphabet(AL),
@@ -91,21 +111,24 @@ solver(M, LRD, LRM, LRI, RF, S, E) :- head_tail(M, H, T),
     member(RD, B2, V3), give_elem(AL, V3, EI),
 %step3
     addlast(S, EI, NS),
-    gray_bar(LRD, LRM, LRI, v, e, NLRD, NLRM, NLRI),
-    solver(T, NLRD, NLRM, NLRI, RF, NS, E).
+    gray_bar(LRD, LRM, LRI, BD, BM, NLRD, NLRM, NLRI),
+    solver(T, NLRD, NLRM, NLRI, RF, NS, BD, BM, E).
 
 %para encriptar
-encrypt(M, C, E) :-
-    head_tail(C, N1, R1), head_tail(R1, N2, R2),
-    head_tail(R2, N3, _), alphabet(L),
+encrypt(M, R, C, E) :-
+    head_tail(C, N1, C1), head_tail(C1, N2, C2),
+    head_tail(C2, N3, _), alphabet(L),
     member(L, N1, P1), member(L, N2, P2), member(L, N3, P3),
-    r1(RI), r2(RM), r3(RD), rfb(RF),
+    head_tail(R, R1, T1), head_tail(T1, R2, T2),
+    head_tail(T2, R3, T3), head_tail(T3, R4, _),
+    choose_rot(R1, RI, _), choose_rot(R2, RM, BM),
+    choose_rot(R3, RD, BD), choose_rf(R4, RF),
     alphabet(ARD), alphabet(ARI), alphabet(ARM),
     NP3 is P3+1,
     rot(RI, P1, S1), rot(ARI, P1, AS1), par(S1, AS1, LRI),
     rot(RM, P2, S2), rot(ARM, P2, AS2), par(S2, AS2, LRM),
     rot(RD, NP3, S3), rot(ARD, NP3, AS3), par(S3, AS3, LRD),
-    solver(M, LRD, LRM, LRI, RF, [], E), !.
+    solver(M, LRD, LRM, LRI, RF, [], BD, BM, E), !.
 
 %para desencriptar
-decrypt(M, C, E) :- encrypt(M, C, E).
+decrypt(M, R, C, E) :- encrypt(M, R, C, E).
