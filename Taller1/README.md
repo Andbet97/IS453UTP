@@ -33,20 +33,20 @@ if you work in GNU Linux.
 
 **Desktop test 1**
 
-![alt text](https://github.com/andbet050197/IS453UTP/tree/master/Taller1/file/foto1.jpg "Example 1")
+![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/foto1.jpg "Example 1")
 
 **Project answer to test 1**
 
-![alt text](https://github.com/andbet050197/IS453UTP/tree/master/Taller1/file/ejemplo1.jpg "Example 1")
+![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/ejemplo1.jpg "Example 1")
 
 **Desktop test 2**
 
-![alt text](https://github.com/andbet050197/IS453UTP/tree/master/Taller1/file/ejemplo2.jpg "Example 2")
+![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/foto2.jpg "Example 2")
 
 **Project answer to test 1**
 
-![alt text](https://github.com/andbet050197/IS453UTP/tree/master/Taller1/file/foto2.jpg "Example 2")
+![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/ejemplo2.jpg "Example 2")
 
 **Project answer to $9750**
 
-![alt text](https://github.com/andbet050197/IS453UTP/tree/master/Taller1/file/ejemplo3.jpg "Example 3")
+![alt text](https://github.com/andbet050197/IS453UTP/blob/master/Taller1/file/ejemplo3.jpg "Example 3")
