@@ -5,15 +5,17 @@
 %        X = b
 %        R = [a,c,d]
 
-addlast([], E, [E]).
-addlast([H|T], E, [H|TL]) :- addlast(T, E, TL).
+remove_at(X, [X|T], 1, T).
+remove_at(X, [H|T], B, [H|C]) :- B > 1, NB is B-1,remove_at(X, T, NB, C).
 
-my_append([],  B, B).
-my_append([H|T], L, [H|TR]) :- my_append(T, L, TR).
+%solucion pagina
+% P20 (*): Remove the K'th element from a list.
+% The first element in the list is number 1.
 
-remove_at(A, B, C) :- removek1(A, B, [], C).
-removek1([_|T], 1, A, R) :- my_append(A, T, R).
-removek1([H|T], K, A, R) :-
-    NK is K-1,
-    addlast(A, H, NA),
-    removek1(T, NK, NA, R).
+% remove_at(X,L,K,R) :- X is the K'th element of the list L; R is the
+%    list that remains when the K'th element is removed from L.
+%    (element,list,integer,list) (?,?,+,?)
+
+%remove_at(X,[X|Xs],1,Xs).
+%remove_at(X,[Y|Xs],K,[Y|Ys]) :- K > 1,
+%   K1 is K - 1, remove_at(X,Xs,K1,Ys).
