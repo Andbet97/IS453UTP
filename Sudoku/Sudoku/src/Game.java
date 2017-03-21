@@ -19,7 +19,6 @@ public class Game {
                 this.board[i][j] = new Casilla();
                 this.board[i][j].setValor(board[i][j]);
                 if (board[i][j] == 0) {
-                    this.white += 1;
                     this.board[i][j].setColor("white");
                 } else {
                     this.board[i][j].setColor("gray");
@@ -106,9 +105,6 @@ public class Game {
                             }
                         }
                         j--;
-                        continue;
-                    }
-                    if (j == 9) {
                         continue;
                     }
                     if (!comprube(i, j)) {
