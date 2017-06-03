@@ -5,10 +5,23 @@ class View(object):
     """Clase View, sirve para ver de forma grafica la solucion brindada
         por Minizinc al problema de los Cuadrados o Rectangulos"""
 
-    def __init__(self, width, height, solution):
+    def __init__(self):
         """Inicializa el objeto de la clase View"""
-        self.colors = self.set_colors(len(solution))
-        self.draw(width, height, solution, self.colors)
+        self.width = int(input())
+        self.height = int(input())
+        self.solution = self.set_solution()
+        self.colors = self.set_colors(len(self.solution)-1)
+        self.draw()
+
+    def set_solution(self):
+        data = input()
+        solution = []
+        N = int(len(data)/4)
+        for i in range(N):
+            index = i*4
+            solution.append((int(data[index]), int(data[index+1]),
+                             int(data[index+2]), int(data[index+3])))
+        return solution
 
     def set_colors(self, x):
         """Funcion que escoge x colores de forma aleatoria, donde x es la
@@ -18,7 +31,7 @@ class View(object):
         colors = []
         for i in range(x):
             # Escoger de forma aleatoria un color RGB
-            r,g,b = randint(0, 200), randint(0, 200), randint(0, 200)
+            r,g,b = randint(100, 200), randint(100, 200), randint(100, 200)
             colors.append((r, g, b))
         return colors
 
@@ -27,19 +40,24 @@ class View(object):
         Max = max(width, height)
         return 700/Max
 
-    def draw(self, width, height, solution, colors):
+    def draw(self):
         """Funcion que se encarga de la visualizacion de los cuadrados/
             rectangulos"""
-        scale = self.scale(width, height)
+        scale = self.scale(self.width, self.height)
         pygame.init()
-        DISPLAY = pygame.display.set_mode((int(width*scale),int(height*scale)),0,32)
-        DISPLAY.fill((255,255,255))
-        for i in range(len(solution)):
-            x,y,w,h = solution[i]
-            r,g,b = colors[i]
+        width = round(self.width*scale)
+        height = round(self.height*scale)
+        DISPLAY = pygame.display.set_mode((width, height),0,32)
+        DISPLAY.fill((30,30,30))
+        for i in range(len(self.solution)):
+            x,y,w,h = self.solution[i]
             # Redondear el resultado de (x,y,h,w) por la escala
             x,y = round(x*scale), round(y*scale)
             h,w = round(h*scale), round(w*scale)
+            if i == len(self.solution)-1:
+                pygame.draw.rect(DISPLAY,(255,255,255),(x, y, w, h))
+                continue
+            r,g,b = self.colors[i]
             pygame.draw.rect(DISPLAY,(r,g,b),(x, y, w, h))
         while True:
             for event in pygame.event.get():
@@ -48,11 +66,5 @@ class View(object):
                     sys.exit()
             pygame.display.update()
 
-
-# Datos a ver
-width=15
-height=27
-solution= [(0,5,1,1), (0,16,2,2), (2,16,3,3), (1,5,4,4), (0,0,5,5), (0,10,6,6),
- (0,19,7,7), (7,19,8,8), (6,10,9,9), (5,0,10,10)]
 # Objeto del tipo View
-D = View(width, height, solution)
+D = View()

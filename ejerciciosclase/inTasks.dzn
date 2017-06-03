@@ -1,0 +1,6 @@
+n=3;
+NDeRecursos=2;
+duration=[1, 2, 2];
+dependence=[{}, {1}, {1}];
+maxDeRecurso=[2, 1];
+RecursosPorTarea=[|0, 1, 0, |1, 1, 1|];
