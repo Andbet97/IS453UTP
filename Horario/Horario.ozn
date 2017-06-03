@@ -1,0 +1,11 @@
+output ["S = array1d(0..203 ,",show(S),");\n","D = array1d(0..203 ,",show(D),");\n","H = array1d(0..203 ,",show(H),");\n","Lunch = array2d(0..9 ,0..4 ,",show(Lunch),");\n","Salones = ",show(Salones),";\n","unos = array1d(0..203 ,",show(unos),");\n","maximo = ",show(maximo),";\n"];
+set of int: SQ = 0..203;
+set of int: Days = 0..4;
+set of int: Perid = 0..9;
+array [SQ] of int: S;
+array [SQ] of int: D;
+array [SQ] of int: H;
+array [Perid,Days] of int: Lunch;
+int: Salones;
+array [SQ] of int: unos;
+int: maximo;
