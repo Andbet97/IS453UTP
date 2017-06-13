@@ -1,3 +1,12 @@
+% Trabajo realizado por:
+% Angelica Bibiana Lopez Velasquez, codigo 42153042
+% Andres Felipe Betancurt Rivera, codig 1088028961
+% Tema: Tareas y recursos
+% La propuesta es realizar unas tareas con dependecias y consumo de recursos en el menor tiempo 
+% cumpliendo las siguientes restricciones:
+% -> Las tareas deben tener como requisito sus dependencias
+% -> Las tareas no beben exigir mas del maximo de recursos
+
 include "cumulative.mzn";
 
 % Entradas
@@ -47,8 +56,9 @@ constraint
     cumulative(time_start, duration, [RecursosPorTarea[i, j] | j in SQ], maxDeRecurso[i])
     );
 
-% Para minimizar el tiempo
+% calcular el tiempo total
 constraint 
   estimate = max([time_start[i] + duration[i] | i in SQ]);
 
+% minimizar el tiempo
 solve minimize estimate;
